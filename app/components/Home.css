@@ -1,0 +1,68 @@
+.container {
+  /* position: absolute;
+  top: 30%;
+  left: 10px;
+  text-align: center; */
+  padding: 90px;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+
+.micro_clicked {
+  background: #d4842b;
+}
+.mic {
+  margin: auto;
+  width: 50%;
+  /* top: 233px; */
+
+  text-align: center;
+  /* position: relative; */
+  /* top: 303px; */
+}
+
+.mic_background {
+  font-size: 192px;
+  background: #d4842b;
+  /* background: #201f1f; */
+  padding: 59px;
+  border-radius: 100%;
+}
+.top_header {
+  /* width: 100%; */
+  height: 20px;
+  background: #2e354f;
+  padding: 1px;
+  -webkit-app-region: drag;
+}
+.top_title {
+  font-family: Roboto;
+  padding: 11px;
+}
+
+input {
+  background: #151821;
+  border: 0px;
+  padding: 13px;
+  color: white;
+  width: 80%;
+}
+
+input:focus {
+  outline-color: wheat;
+}
+
+.container i:hover {
+  color: #d6c892 !important;
+}
+
+.container .input_container {
+  display: inline-flex;
+  width: 100%;
+}
