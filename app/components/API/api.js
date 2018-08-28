@@ -5,9 +5,9 @@
 const baseURL = 'http://localhost:8080';
 // http: //localhost:8080/orktrack/command?cmd=ondemand&type=pause&localparty=5002&orkuid=ABCD&side=both
 // http: //localhost:8080/orktrack/command?cmd=ondemand&type=pause&localparty=SOFTPHONE057&side=both
-export const pauseGET = pauseAction =>
+export const pauseGET = (pauseAction, username) =>
   fetch(
-    `${baseURL}/orktrack/command?cmd=ondemand&type=pause&localparty=SOFTPHONE057&side=both`,
+    `${baseURL}/orktrack/command?cmd=ondemand&type=pause&localparty=${username}&side=both`,
     {
       method: 'GET',
       headers: new Headers({
@@ -23,9 +23,9 @@ export const pauseGET = pauseAction =>
       return pauseAction(data);
     });
 
-export const resumeGET = resumeAction =>
+export const resumeGET = (resumeAction, username) =>
   fetch(
-    `${baseURL}/orktrack/command?cmd=ondemand&type=resume&localparty=SOFTPHONE057&side=both`,
+    `${baseURL}/orktrack/command?cmd=ondemand&type=resume&localparty=${username}&side=both`,
     {
       method: 'GET',
       headers: new Headers({

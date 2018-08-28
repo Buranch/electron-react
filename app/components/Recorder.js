@@ -34,10 +34,12 @@ class Recorder extends Component<Props> {
 
   handleRecorder() {
     const { setPauseResponse, setResumeResponse } = this.props;
+    const { username } = this.props;
+
     const { activity } = this.state;
     // eslint-disable
-    if (activity === 'recording') pauseGET(setPauseResponse);
-    else resumeGET(setResumeResponse);
+    if (activity === 'recording') pauseGET(setPauseResponse, username);
+    else resumeGET(setResumeResponse, username);
     this.setState({
       activity: activity === 'recording' ? 'paused' : 'recording'
     });
