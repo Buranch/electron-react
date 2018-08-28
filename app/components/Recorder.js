@@ -53,7 +53,7 @@ class Recorder extends Component<Props> {
     return (
       <div>
         <div className={styles.top_header}>
-          <span className={styles.top_title}>SOFTPHONE005</span>
+          {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
 
           <div style={{ float: 'right' }}>
             <i

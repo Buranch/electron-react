@@ -40,7 +40,7 @@ class Home extends Component<Props> {
             <i className="fas fa-window-close" style={{ marginRight: '2px' }} />
           </div>
         </div>
-        <span className={styles.top_title}>SOFTPHONE005</span>
+        {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
         <div className={styles.container} data-tid="container">
           <h3>User ID</h3>
           {/* eslint-disable jsx-a11y/no-static-element-interactions */}
