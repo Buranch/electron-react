@@ -56,7 +56,7 @@ class Recorder extends Component<Props> {
           {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
 
           <div style={{ float: 'right' }}>
-            <i
+            {/*<i
               className="fas fa-window-minimize"
               style={{ marginRight: '2px' }}
             />
@@ -64,17 +64,13 @@ class Recorder extends Component<Props> {
               className="fas fa-window-maximize"
               style={{ marginRight: '2px' }}
             />
-            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />
+            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />*/}
           </div>
         </div>
         <div className={styles.goback}>
           <Link to="/home">
-            <i
-              className="fas fa-arrow-alt-circle-left"
-              style={{ fontSize: '2.3rem' }}
-            />
+            <div className={styles.username}>{username}</div>
           </Link>
-          <div className={styles.username}>{username}</div>
         </div>
         <div className={styles.container} data-tid="container">
           {/* <i className="fa fa-microphone-slash" style={{fontSize: '192px'}} /> */}
@@ -86,12 +82,12 @@ class Recorder extends Component<Props> {
                 className="fa fa-microphone-slash"
                 onClick={this.handleRecorder}
                 style={{
-                  fontSize: '67px',
+                  fontSize: '22px',
                   // rgb(48, 125, 138)
                   // d4842b
                   // #181e38 recording
                   background: activity === 'recording' ? '#1b223a' : '#d4842b',
-                  padding: activity === 'recording' ? '50px' : '56px',
+                  padding: activity === 'recording' ? '22px' : '24px',
                   borderRadius: '100%',
                   transitionProperty: 'padding',
                   transitionDuration: '0.2s',
@@ -101,7 +97,7 @@ class Recorder extends Component<Props> {
               />
             )}
           </div>
-          <p style={{ textAlign: 'center' }}>{nocall || activity}</p>
+          <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{nocall || activity}</p>
           <p className={styles.nocall}>{!nocall || 'No Call Detected'}</p>
         </div>
       </div>

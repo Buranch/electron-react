@@ -14,6 +14,7 @@ import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
+const path = require('path');
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -64,10 +65,12 @@ app.on('ready', async () => {
     show: false,
     // width: 1024,
     // height: 728,
-    width: 640,
-    height: 400,
+    width: 360,
+    height: 170,
     transparent: true,
-    frame: false
+    resizable: false,
+    frame: false,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png')
   });
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 

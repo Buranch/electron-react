@@ -3,7 +3,7 @@
   top: 30%;
   left: 10px;
   text-align: center; */
-  padding: 10px;
+  padding: 12px;
 }
 
 .container h2 {
@@ -21,8 +21,10 @@
 .mic {
   margin: auto;
   width: 50%;
+
   /* top: 233px; */
   text-align: center;
+  cursor: pointer;
   /* position: relative; */
   /* top: 303px; */
 }
@@ -31,7 +33,7 @@
   font-size: 192px;
   background: #d4842b;
   /* background: #201f1f; */
-  padding: 59px;
+  padding: 28px;
   border-radius: 100%;
 }
 
@@ -58,16 +60,18 @@
 }
 
 .username {
-  font-size: 1.3rem;
-  margin-left: 10px;
-  margin-top: -3px;
+  font-size: 0.8rem;
+  margin-left: 6px;
+  margin-top: -24px;
+  padding: 0.4rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.14);
   vertical-align: super;
   display: inline-block;
 }
 
 .mic i:hover {
   color: rgb(248, 253, 25) !important;
-  box-shadow: -1px 2px 5px 0px #807c7c;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   /* padding: 56px!important; */
 }
 
@@ -75,7 +79,7 @@
   text-align: center;
   font-family: Roboto;
   font-style: italic;
-  font-size: -webkit-xxx-large;
+  font-size: small;
   color: #1a1f31;
   font-weight: 800;
 }
