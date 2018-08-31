@@ -25,21 +25,36 @@ type Props = {
 };
 
 class Recorder extends Component<Props> {
-  props: Props;
 
-  state = {
+  constructor(props: Props) {
+   super(props);
+   this.state = {
     activity: 'recording',
     nocall: false
-  };
+   };
+   this.url = "audio/beep.mp3";
+   this.audio = new Audio(this.url);
+  //  this.audio.loop = true;
+ }
 
-  handleRecorder() {
+   handleRecorder() {
     const { setPauseResponse, setResumeResponse } = this.props;
     const { username } = this.props;
 
     const { activity } = this.state;
     // eslint-disable
-    if (activity === 'recording') pauseGET(setPauseResponse, username);
-    else resumeGET(setResumeResponse, username);
+    if (activity === 'recording') {
+      pauseGET(setPauseResponse, username)
+      this.audio.play()
+      this.audio.loop = true;
+
+    }
+
+    else {
+      resumeGET(setResumeResponse, username);
+      this.audio.loop = false;
+      this.audio.pause();
+    }
     this.setState({
       activity: activity === 'recording' ? 'paused' : 'recording'
     });

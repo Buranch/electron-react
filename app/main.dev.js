@@ -70,7 +70,7 @@ app.on('ready', async () => {
     transparent: true,
     resizable: false,
     frame: false,
-    icon: path.join(__dirname, 'assets/icons/png/64x64.png')
+    icon: path.join(__dirname, '../resources/icon.png')
   });
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 

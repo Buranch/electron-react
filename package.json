@@ -1,7 +1,7 @@
 {
-  "name": "rahine-design-electron",
+  "name": "rhine-design-electron",
   "productName": "ElectronReact",
-  "version": "0.14.0",
+  "version": "1.0.0",
   "description": "Electron application for Rahine Design based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
