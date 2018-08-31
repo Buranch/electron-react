@@ -29,7 +29,7 @@ class Home extends Component<Props> {
       <div>
         <div className={styles.top_header}>
           <div style={{ float: 'right' }}>
-            <i
+            {/*<i
               className="fas fa-window-minimize"
               style={{ marginRight: '2px' }}
             />
@@ -37,12 +37,12 @@ class Home extends Component<Props> {
               className="fas fa-window-maximize"
               style={{ marginRight: '2px' }}
             />
-            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />
+            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />*/}
           </div>
         </div>
         {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
         <div className={styles.container} data-tid="container">
-          <h3>User ID</h3>
+          <h3 className="label">User ID</h3>
           {/* eslint-disable jsx-a11y/no-static-element-interactions */}
           {/* eslint-disable jsx-a11y/click-events-have-key-events */}
           <div className={styles.input_container}>

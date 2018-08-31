@@ -3,11 +3,11 @@
   top: 30%;
   left: 10px;
   text-align: center; */
-  padding: 90px;
+  padding: 10px 20%;
 }
 
 .container h2 {
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .container a {
@@ -44,6 +44,10 @@
 .top_title {
   font-family: Roboto;
   padding: 11px;
+}
+
+.label {
+  font-size: 12px;
 }
 
 input {
