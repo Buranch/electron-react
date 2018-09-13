@@ -71,7 +71,7 @@ class Recorder extends Component<Props> {
           {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
 
           <div style={{ float: 'right' }}>
-            {/*<i
+            {/* <i
               className="fas fa-window-minimize"
               style={{ marginRight: '2px' }}
             />
@@ -79,7 +79,7 @@ class Recorder extends Component<Props> {
               className="fas fa-window-maximize"
               style={{ marginRight: '2px' }}
             />
-            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />*/}
+            <i className="fas fa-window-close" style={{ marginRight: '2px' }} /> */}
           </div>
         </div>
         <div className={styles.goback}>

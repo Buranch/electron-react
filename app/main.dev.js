@@ -10,7 +10,15 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import fs from 'fs';
+import util from 'util';
+import xml2js from 'xml2js';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  ipc
+} from 'electron';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -40,6 +48,43 @@ const installExtensions = async () => {
     extensions.map(name => installer.default(installer[name], forceDownload))
   ).catch(console.log);
 };
+
+const getFolderLocation = () => {
+  console.log('get folder location');
+  console.log('dirname', __dirname);
+  let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
+  console.log('home', process.env.HOME);
+
+  return fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
+    let xml = null;
+    files.every(file => {
+      console.log(file);
+
+      fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
+      console.log('fullPath ', fullPathToSetting);
+      const parser = new xml2js.Parser();
+      return fs.readFile(fullPathToSetting, (err2, data) => {
+        parser.parseString(data, (err3, result) => {
+          console.dir(result);
+          // console.log(util.inspect(result, false, null))
+          console.log('Done');
+          xml = result;
+          return false;
+        });
+      });
+    });
+    return xml;
+  });
+
+
+
+
+  // ipcMain.on('folder', (event, msg, single) => {
+  //   console.log('folderer');
+
+  // })
+}
+
 
 /**
  * Add event listeners...
@@ -76,6 +121,36 @@ app.on('ready', async () => {
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
+  ipcMain.on('xml', (event, arg) => {
+    console.log('msg', arg);
+    // console.log('sending ', getFolderLocation());
+
+
+    console.log('get folder location');
+    console.log('dirname', __dirname);
+    let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
+    console.log('home', process.env.HOME);
+
+    fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
+      if(err) console.log('error man while finding folder');
+      files.every(file => {
+        console.log(file);
+        fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
+        console.log('fullPath ', fullPathToSetting);
+        const parser = new xml2js.Parser();
+        return fs.readFile(fullPathToSetting, (err2, data) => {
+          if(err2) console.log('err man while reading');
+          parser.parseString(data, (err3, result) => {
+            console.dir(result);
+            // console.log(util.inspect(result, false, null))
+            event.sender.send('xml', result);
+            console.log('Done');
+            return false;
+          });
+        });
+      });
+     });
+  });
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
@@ -87,6 +162,7 @@ app.on('ready', async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+      // getFolderLocation();
     }
   });
 

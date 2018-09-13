@@ -9,6 +9,7 @@ export const SET_PAUSE_REPONSE = 'SET_PAUSE_REPONSE';
 export const SET_RESUME_REPONSE = 'SET_RESUME_REPONSE';
 
 export function setUserName(name) {
+  console.log('setUserName', name);
   return {
     type: SET_USERNAME,
     name
