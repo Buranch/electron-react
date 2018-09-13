@@ -17,7 +17,9 @@ import {
   app,
   BrowserWindow,
   ipcMain,
-  ipc
+  ipc,
+  screen
+
 } from 'electron';
 import MenuBuilder from './menu';
 
@@ -106,16 +108,22 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+    const display = screen.getPrimaryDisplay();
+    const { width, height } = display.bounds;
   mainWindow = new BrowserWindow({
     show: false,
     // width: 1024,
     // height: 728,
     width: 360,
     height: 170,
+    x: width - 360,
+    y: height - 170,
     transparent: true,
     resizable: false,
     frame: false,
-    icon: path.join(__dirname, '../resources/icon.png')
+    icon: path.join(__dirname, '../resources/icon.png'),
+ 
+
   });
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 
