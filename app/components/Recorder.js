@@ -55,7 +55,7 @@ class Recorder extends Component<Props> {
   }
 
   tick() {
-    const { counter, timer } = this.state;
+    const { counter } = this.state;
     const { setActive , username } = this.props;
 
     checkActive(setActive, username);

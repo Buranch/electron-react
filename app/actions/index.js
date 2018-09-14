@@ -8,6 +8,7 @@ export const SET_USERNAME = 'SET_USERNAME';
 export const SET_PAUSE_REPONSE = 'SET_PAUSE_REPONSE';
 export const SET_RESUME_REPONSE = 'SET_RESUME_REPONSE';
 export const SET_ACTIVE_STATE = 'SET_ACTIVE_STATE';
+export const SET_USER_EXIST = 'SET_USER_EXIST';
 
 
 export function setUserName(name) {
@@ -37,6 +38,14 @@ export function setActive(active) {
   return {
     type: SET_ACTIVE_STATE,
     active
+  }
+}
+
+export function setUserExist(exists) {
+  console.log('setUserExist');
+  return {
+    type: SET_USER_EXIST,
+    exists
   }
 }
 

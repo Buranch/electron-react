@@ -63,3 +63,22 @@ export const checkActive = (setActive, username) =>
         return setActive(true);
       })
       
+export const loginUser = (setUserExist, username) =>
+    fetch(
+        `${baseURL}/orktrack/command?cmd=queryuser&localparty=${username}`, {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'text/plain',
+            Accept: 'text/plain'
+          })
+        }
+      )
+      .then(res => res.text())
+      .then(data => {
+        console.log('data', data);
+        console.log('username', username);
+        if (data.includes('wanted=false')) {
+          return setUserExist(false);
+        }
+        return setUserExist(true);
+      })

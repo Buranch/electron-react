@@ -51,42 +51,6 @@ const installExtensions = async () => {
   ).catch(console.log);
 };
 
-const getFolderLocation = () => {
-  console.log('get folder location');
-  console.log('dirname', __dirname);
-  let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
-  console.log('home', process.env.HOME);
-
-  return fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
-    let xml = null;
-    files.every(file => {
-      console.log(file);
-
-      fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
-      console.log('fullPath ', fullPathToSetting);
-      const parser = new xml2js.Parser();
-      return fs.readFile(fullPathToSetting, (err2, data) => {
-        parser.parseString(data, (err3, result) => {
-          console.dir(result);
-          // console.log(util.inspect(result, false, null))
-          console.log('Done');
-          xml = result;
-          return false;
-        });
-      });
-    });
-    return xml;
-  });
-
-
-
-
-  // ipcMain.on('folder', (event, msg, single) => {
-  //   console.log('folderer');
-
-  // })
-}
-
 
 /**
  * Add event listeners...
@@ -130,29 +94,23 @@ app.on('ready', async () => {
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   ipcMain.on('xml', (event, arg) => {
-    console.log('msg', arg);
     // console.log('sending ', getFolderLocation());
 
-
-    console.log('get folder location');
-    console.log('dirname', __dirname);
     let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
-    console.log('home', process.env.HOME);
 
     fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
-      if(err) console.log('error man while finding folder');
+      if(err) return console.log('Error while trying to find settings folder');
       files.every(file => {
         console.log(file);
         fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
         console.log('fullPath ', fullPathToSetting);
         const parser = new xml2js.Parser();
         return fs.readFile(fullPathToSetting, (err2, data) => {
-          if(err2) console.log('err man while reading');
+          if(err2) return console.log('Error while trying to read setting.cps');
           parser.parseString(data, (err3, result) => {
             console.dir(result);
             // console.log(util.inspect(result, false, null))
             event.sender.send('xml', result);
-            console.log('Done');
             return false;
           });
         });
