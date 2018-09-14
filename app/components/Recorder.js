@@ -7,7 +7,7 @@ import styles from './Recorder.css';
 
 import * as CounterActions from '../actions';
 
-import { pauseGET, resumeGET } from './API/api';
+import { pauseGET, resumeGET, checkActive } from './API/api';
 
 // type Props = {
 //   increment: () => void,
@@ -20,8 +20,10 @@ import { pauseGET, resumeGET } from './API/api';
 type Props = {
   // setUserName: () => void
   username: string,
+  active: boolean,
   setPauseResponse: () => void,
-  setResumeResponse: () => void
+  setResumeResponse: () => void,
+  setActive: () => void
 };
 
 class Recorder extends Component<Props> {
@@ -30,20 +32,49 @@ class Recorder extends Component<Props> {
    super(props);
    this.state = {
     activity: 'recording',
-    nocall: false
+    nocall: false,
+    timer: null,
+    counter: 0
    };
    this.url = "audio/beep.mp3";
    this.audio = new Audio(this.url);
   //  this.audio.loop = true;
+  this.tick = this.tick.bind(this);
  }
+
+  componentDidMount() {
+    const timer = setInterval(this.tick, 5000);
+    this.setState({
+      timer
+    });
+  }
+
+  componentWillUnmount() {
+    const { timer } = this.state;
+    clearInterval(timer);
+  }
+
+  tick() {
+    const { counter } = this.state;
+    const { setActive , username } = this.props;
+
+    checkActive(setActive, username);
+    
+    this.setState({
+      counter: counter + 1
+    });
+    // if(counter === 15) {
+    //   clearInterval(timer);
+    // }
+  }
 
    handleRecorder() {
     const { setPauseResponse, setResumeResponse } = this.props;
-    const { username } = this.props;
+    const { username, active } = this.props;
 
     const { activity } = this.state;
     // eslint-disable
-    if (activity === 'recording') {
+    if (activity === 'recording' && active) {
       pauseGET(setPauseResponse, username)
       this.audio.play()
       this.audio.loop = true;
@@ -62,7 +93,7 @@ class Recorder extends Component<Props> {
 
   render() {
     this.handleRecorder = this.handleRecorder.bind(this);
-    const { username } = this.props;
+    const { username, active } = this.props;
     const { activity, nocall } = this.state;
     console.log('username is: ', username);
     return (
@@ -71,7 +102,7 @@ class Recorder extends Component<Props> {
           {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
 
           <div style={{ float: 'right' }}>
-            {/*<i
+            {/* <i
               className="fas fa-window-minimize"
               style={{ marginRight: '2px' }}
             />
@@ -79,7 +110,7 @@ class Recorder extends Component<Props> {
               className="fas fa-window-maximize"
               style={{ marginRight: '2px' }}
             />
-            <i className="fas fa-window-close" style={{ marginRight: '2px' }} />*/}
+            <i className="fas fa-window-close" style={{ marginRight: '2px' }} /> */}
           </div>
         </div>
         <div className={styles.goback}>
@@ -92,7 +123,7 @@ class Recorder extends Component<Props> {
           <div className={styles.mic}>
             {/* eslint-disable jsx-a11y/no-static-element-interactions */}{' '}
             {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-            {nocall || (
+            { nocall || active && (
               <i
                 className="fa fa-microphone-slash"
                 onClick={this.handleRecorder}
@@ -112,8 +143,10 @@ class Recorder extends Component<Props> {
               />
             )}
           </div>
-          <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{nocall || activity}</p>
+          <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{nocall || activity && !active}</p>
           <p className={styles.nocall}>{!nocall || 'No Call Detected'}</p>
+          <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{!active && ('Not active') }</p>
+
         </div>
       </div>
     );
@@ -122,7 +155,8 @@ class Recorder extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    username: state.user.username || 'Unknown'
+    username: state.user.username || 'Unknown',
+    active: state.appData.active
   };
 }
 

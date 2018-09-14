@@ -1,5 +1,5 @@
 // @flow
-import { SET_PAUSE_REPONSE, SET_RESUME_REPONSE } from '../actions';
+import { SET_PAUSE_REPONSE, SET_RESUME_REPONSE, SET_USER_EXIST, SET_ACTIVE_STATE } from '../actions';
 import type { Action } from './types';
 
 export default function appData(state = [], action: Action) {
@@ -10,7 +10,13 @@ export default function appData(state = [], action: Action) {
     case SET_RESUME_REPONSE:
       console.log('indeed resume');
       return { ...state, resumeResponse: action.response };
+    case SET_ACTIVE_STATE:
+      console.log('set Active state');
+      return { ...state, active: action.active };
+    case SET_USER_EXIST: 
+      console.log('set User exits');
+      return { ...state, exists: action.exists};
     default:
-      return state;
+      return {...state, active: true, exists: false};
   }
 }

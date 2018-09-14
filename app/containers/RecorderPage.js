@@ -5,7 +5,8 @@ import * as CounterActions from '../actions';
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    active: state.appData
   };
 }
 
