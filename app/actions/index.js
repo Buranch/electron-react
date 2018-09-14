@@ -7,6 +7,8 @@
 export const SET_USERNAME = 'SET_USERNAME';
 export const SET_PAUSE_REPONSE = 'SET_PAUSE_REPONSE';
 export const SET_RESUME_REPONSE = 'SET_RESUME_REPONSE';
+export const SET_ACTIVE_STATE = 'SET_ACTIVE_STATE';
+
 
 export function setUserName(name) {
   console.log('setUserName', name);
@@ -28,6 +30,14 @@ export function setResumeResponse(response) {
     type: SET_RESUME_REPONSE,
     response
   };
+}
+
+export function setActive(active) {
+  console.log('setActive');
+  return {
+    type: SET_ACTIVE_STATE,
+    active
+  }
 }
 
 // export function increment() {
