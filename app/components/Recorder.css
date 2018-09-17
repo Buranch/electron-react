@@ -83,3 +83,21 @@
   color: #1a1f31;
   font-weight: 800;
 }
+
+
+.button_holder {
+  margin: auto;
+  text-align: center;
+}
+
+.button {
+      background: #1a1f31;
+      border: 0;
+      color: wheat;
+      padding: 7px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+.button:hover {
+      background: #060911;
+}
