@@ -1,5 +1,5 @@
 // @flow
-import { SET_PAUSE_REPONSE, SET_RESUME_REPONSE, SET_USER_EXIST, SET_ACTIVE_STATE } from '../actions';
+import { SET_PAUSE_REPONSE, SET_RESUME_REPONSE, SET_SERVER_STATE, SET_USER_EXIST, SET_ACTIVE_STATE } from '../actions';
 import type { Action } from './types';
 
 export default function appData(state = [], action: Action) {
@@ -16,7 +16,10 @@ export default function appData(state = [], action: Action) {
     case SET_USER_EXIST: 
       console.log('set User exits');
       return { ...state, exists: action.exists};
+    case SET_SERVER_STATE: 
+      console.log('set Server state');
+      return { ...state, serverStatus: action.status};
     default:
-      return {...state, active: true, exists: false};
+      return {...state, active: true, exists: false, serverStatus: true};
   }
 }

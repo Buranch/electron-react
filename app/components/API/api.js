@@ -42,7 +42,7 @@ export const resumeGET = (resumeAction, username) =>
       return resumeAction(data);
     });
 
-export const checkActive = (setActive, username) =>
+export const checkActive = (setActive, username, setServerState) =>
     fetch(
       // `http://localhost:9666/plain_text`,
       `${baseURL}/orktrack/command?cmd=livestatus&localparty=${username}`,
@@ -54,7 +54,12 @@ export const checkActive = (setActive, username) =>
         })
       }
     )
-      .then(res => res.text())
+      .then(res => {
+          // console.log('res', res.status)
+          if(res.status !== 200) {
+            setServerState(false)
+          }
+        return res.text()})
       .then(data => {
         console.log('data', data);
         if(data.includes('inactive')){
@@ -62,9 +67,11 @@ export const checkActive = (setActive, username) =>
         }
         return setActive(true);
       })
+      .catch(() => setServerState(false))
       
 export const loginUser = (setUserExist, username) =>
     fetch(
+      // `http://localhost:9666/plain_text`, {
         `${baseURL}/orktrack/command?cmd=queryuser&localparty=${username}`, {
           method: 'GET',
           headers: new Headers({

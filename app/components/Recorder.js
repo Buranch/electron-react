@@ -9,21 +9,15 @@ import * as CounterActions from '../actions';
 
 import { pauseGET, resumeGET, checkActive } from './API/api';
 
-// type Props = {
-//   increment: () => void,
-//   incrementIfOdd: () => void,
-//   incrementAsync: () => void,
-//   decrement: () => void,
-//   counter: number
-// };
-
 type Props = {
   // setUserName: () => void
   username: string,
   active: boolean,
+  serverStatus: boolean,
   setPauseResponse: () => void,
   setResumeResponse: () => void,
-  setActive: () => void
+  setActive: () => void,
+  setServerStatus: () => void
 };
 
 class Recorder extends Component<Props> {
@@ -34,7 +28,8 @@ class Recorder extends Component<Props> {
     activity: 'recording',
     nocall: false,
     timer: null,
-    counter: 0
+    counter: 0,
+    starting: true
    };
    this.url = "audio/beep.mp3";
    this.audio = new Audio(this.url);
@@ -56,13 +51,21 @@ class Recorder extends Component<Props> {
 
   tick() {
     const { counter } = this.state;
-    const { setActive , username } = this.props;
+    const { setActive , username, setServerStatus } = this.props;
 
-    checkActive(setActive, username);
+    checkActive(setActive, username, setServerStatus);
     
+    if(counter === 0) {
+      this.setState({
+        starting: false
+      });
+    }
+
     this.setState({
       counter: counter + 1
     });
+
+
     // if(counter === 15) {
     //   clearInterval(timer);
     // }
@@ -93,25 +96,14 @@ class Recorder extends Component<Props> {
 
   render() {
     this.handleRecorder = this.handleRecorder.bind(this);
-    const { username, active } = this.props;
-    const { activity, nocall } = this.state;
+    const { username, active, serverStatus } = this.props;
+    const { activity, nocall, starting } = this.state;
+    console.log('serverStatus', serverStatus);
     console.log('username is: ', username);
     return (
       <div>
         <div className={styles.top_header}>
           {/* <span className={styles.top_title}>SOFTPHONE005</span> */}
-
-          <div style={{ float: 'right' }}>
-            {/* <i
-              className="fas fa-window-minimize"
-              style={{ marginRight: '2px' }}
-            />
-            <i
-              className="fas fa-window-maximize"
-              style={{ marginRight: '2px' }}
-            />
-            <i className="fas fa-window-close" style={{ marginRight: '2px' }} /> */}
-          </div>
         </div>
         <div className={styles.goback}>
           <Link to="/home">
@@ -119,19 +111,15 @@ class Recorder extends Component<Props> {
           </Link>
         </div>
         <div className={styles.container} data-tid="container">
-          {/* <i className="fa fa-microphone-slash" style={{fontSize: '192px'}} /> */}
           <div className={styles.mic}>
             {/* eslint-disable jsx-a11y/no-static-element-interactions */}{' '}
             {/* eslint-disable jsx-a11y/click-events-have-key-events */}
-            { nocall || active && (
+            { nocall || active && serverStatus && !starting && (
               <i
                 className="fa fa-microphone-slash"
                 onClick={this.handleRecorder}
                 style={{
                   fontSize: '22px',
-                  // rgb(48, 125, 138)
-                  // d4842b
-                  // #181e38 recording
                   background: activity === 'recording' ? '#1b223a' : '#d4842b',
                   padding: activity === 'recording' ? '22px' : '24px',
                   borderRadius: '100%',
@@ -146,7 +134,14 @@ class Recorder extends Component<Props> {
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{nocall || activity && !active}</p>
           <p className={styles.nocall}>{!nocall || 'No Call Detected'}</p>
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{!active && ('Not active') }</p>
-
+          <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{starting && ('Starting...') }</p>
+          {!serverStatus && (
+            <div>
+              <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>Something went wrong with server :(</p>
+              <div className={styles.button_holder}><button className={styles.button} type="button" onClick={this.tick} >Retry</button></div>
+            </div>
+          )}
+          
         </div>
       </div>
     );
@@ -156,7 +151,8 @@ class Recorder extends Component<Props> {
 function mapStateToProps(state) {
   return {
     username: state.user.username || 'Unknown',
-    active: state.appData.active
+    active: state.appData.active,
+    serverStatus: state.appData.serverStatus
   };
 }
 
