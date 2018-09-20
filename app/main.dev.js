@@ -90,19 +90,19 @@ app.on('ready', async () => {
 
   });
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
-
+  // mainWindow.webContents.openDevTools();
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   ipcMain.on('xml', (event, arg) => {
     // console.log('sending ', getFolderLocation());
 
-    let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
+    let fullPathToSetting = `C:\\Users\\${require("os").userInfo().username}\\AppData\\Local\\trixbox\\eyeBeam`;
 
-    fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
+    fs.readdir(fullPathToSetting, (err, files) => {
       if(err) return console.log('Error while trying to find settings folder');
       files.every(file => {
         console.log(file);
-        fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
+        fullPathToSetting = `${fullPathToSetting}\\${file}\\settings.cps`;
         console.log('fullPath ', fullPathToSetting);
         const parser = new xml2js.Parser();
         return fs.readFile(fullPathToSetting, (err2, data) => {
