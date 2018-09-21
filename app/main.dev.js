@@ -13,6 +13,7 @@
 import fs from 'fs';
 import util from 'util';
 import xml2js from 'xml2js';
+
 import {
   app,
   BrowserWindow,
@@ -25,6 +26,7 @@ import MenuBuilder from './menu';
 
 let mainWindow = null;
 const path = require('path');
+let log = require('electron-log');
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -50,7 +52,6 @@ const installExtensions = async () => {
     extensions.map(name => installer.default(installer[name], forceDownload))
   ).catch(console.log);
 };
-
 
 /**
  * Add event listeners...
@@ -81,14 +82,13 @@ app.on('ready', async () => {
     width: 360,
     height: 170,
     x: width - 360,
-    y: height - 170,
+    y: height - 200,
     transparent: true,
     resizable: false,
     frame: false,
     icon: path.join(__dirname, '../resources/icon.png'),
- 
-
   });
+
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -98,12 +98,14 @@ app.on('ready', async () => {
 
     let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
 
+    log.info(process.env.HOME);
+
     fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
       if(err) return console.log('Error while trying to find settings folder');
       files.every(file => {
-        console.log(file);
+        logger.info(file);
         fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
-        console.log('fullPath ', fullPathToSetting);
+        logger.info('fullPath ', fullPathToSetting);
         const parser = new xml2js.Parser();
         return fs.readFile(fullPathToSetting, (err2, data) => {
           if(err2) return console.log('Error while trying to read setting.cps');

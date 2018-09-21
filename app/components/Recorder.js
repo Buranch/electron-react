@@ -38,7 +38,7 @@ class Recorder extends Component<Props> {
  }
 
   componentDidMount() {
-    const timer = setInterval(this.tick, 5000);
+    const timer = setInterval(this.tick, 1000);
     this.setState({
       timer
     });
@@ -137,7 +137,7 @@ class Recorder extends Component<Props> {
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{starting && ('Starting...') }</p>
           {!serverStatus && (
             <div>
-              <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>Something went wrong with server :(</p>
+              <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>Error communicating with the server.</p>
               <div className={styles.button_holder}><button className={styles.button} type="button" onClick={this.tick} >Retry</button></div>
             </div>
           )}

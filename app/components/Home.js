@@ -117,7 +117,7 @@ class Home extends Component<Props> {
           </div>
           <p
             style={{fontSize: '12px'}}
-          >{inputUsername && loginCalled && `${inputUsername} doesnt exist`}</p>
+          >{inputUsername && loginCalled && `${inputUsername} doesn't exist`}</p>
         </div>
       </div>
     );
