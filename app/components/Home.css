@@ -6,6 +6,10 @@
   padding: 10px 20%;
 }
 
+.container * {
+  box-sizing: border-box;
+}
+
 .container h2 {
   font-size: 4rem;
 }

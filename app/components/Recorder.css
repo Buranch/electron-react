@@ -3,7 +3,7 @@
   top: 30%;
   left: 10px;
   text-align: center; */
-  padding: 12px;
+  padding-top: 8%;
 }
 
 .container h2 {
@@ -51,9 +51,11 @@
 }
 
 .goback {
-  display: inline-block;
-  margin-left: 14px;
-  margin-top: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7%;
+  text-align: center;
 }
 .backarrow {
   font-size: 2.6rem;
@@ -61,16 +63,21 @@
 
 .username {
   font-size: 0.8rem;
-  margin-left: 6px;
-  margin-top: -24px;
-  padding: 0.4rem 0.5rem;
-  background-color: rgba(0, 0, 0, 0.14);
+  margin: auto;
+  padding: 0.3rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0.5;
   vertical-align: super;
-  display: inline-block;
+  width: 50%;
+  cursor: pointer;
+}
+
+.username:hover {
+  opacity: 0.6;
 }
 
 .mic i:hover {
-  color: rgb(248, 253, 25) !important;
+  /* color: rgb(248, 253, 25) !important;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   /* padding: 56px!important; */
 }
@@ -79,11 +86,12 @@
   text-align: center;
   font-family: Roboto;
   font-style: italic;
-  font-size: small;
+  font-weight: bold;
+  font-size: 1em;
   color: #1a1f31;
   font-weight: 800;
+  margin-top: -6px;
 }
-
 
 .button_holder {
   margin: auto;
@@ -91,13 +99,13 @@
 }
 
 .button {
-      background: #1a1f31;
-      border: 0;
-      color: wheat;
-      padding: 7px;
-      padding-left: 20px;
-      padding-right: 20px;
-  }
+  background: #1a1f31;
+  border: 0;
+  color: wheat;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .button:hover {
-      background: #060911;
+  background: #060911;
 }

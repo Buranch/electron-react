@@ -119,20 +119,15 @@ class Recorder extends Component<Props> {
                 className="fa fa-microphone-slash"
                 onClick={this.handleRecorder}
                 style={{
-                  fontSize: '22px',
                   background: activity === 'recording' ? '#1b223a' : '#d4842b',
                   padding: activity === 'recording' ? '22px' : '24px',
-                  borderRadius: '100%',
-                  transitionProperty: 'padding',
-                  transitionDuration: '0.2s',
-                  transitionTimingFunction: 'linear',
-                  transitionDelay: '0.1s'
+                  borderRadius: '50%'
                 }}
               />
             )}
           </div>
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{nocall || activity && !active}</p>
-          <p className={styles.nocall}>{!nocall || 'No Call Detected'}</p>
+          <p className={styles.nocall}>{!nocall || 'Inactive'}</p>
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{!active && ('Not active') }</p>
           <p style={{ textAlign: 'center', fontSize: '8px', textTransform: 'uppercase' }}>{starting && ('Starting...') }</p>
           {!serverStatus && (

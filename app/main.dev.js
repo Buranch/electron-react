@@ -11,14 +11,14 @@
  * @flow
  */
 import fs from 'fs';
-import util from 'util';
+//import util from 'util';
 import xml2js from 'xml2js';
 
 import {
   app,
   BrowserWindow,
   ipcMain,
-  ipc,
+  //ipc,
   screen
 
 } from 'electron';
@@ -26,7 +26,6 @@ import MenuBuilder from './menu';
 
 let mainWindow = null;
 const path = require('path');
-let log = require('electron-log');
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -73,40 +72,44 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-    const display = screen.getPrimaryDisplay();
-    const { width, height } = display.bounds;
+  const display = screen.getPrimaryDisplay();
+  const { width, height } = display.bounds;
+
   mainWindow = new BrowserWindow({
-    show: false,
-    // width: 1024,
-    // height: 728,
-    width: 360,
-    height: 170,
-    x: width - 360,
-    y: height - 200,
+    show: true,
+    width: 270,
+    height: 120,
+    x: width - 270,
+    y: height - 164,
     transparent: true,
     resizable: false,
+    movable: false,
     frame: false,
+    closable: false,
+    opacity: 0.9,
+    type:'toolbar',
+    alwaysOnTop: true,
     icon: path.join(__dirname, '../resources/icon.png'),
   });
 
   process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
-
+  // mainWindow.webContents.openDevTools();
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
-  ipcMain.on('xml', (event, arg) => {
+
+  ipcMain.on('xml', (event/*, arg*/) => {
     // console.log('sending ', getFolderLocation());
 
-    let fullPathToSetting = `\\AppData\\Local\\trixbox\\eyeBeam`;
+    let fullPathToSetting = `C:\\Users\\${require("os").userInfo().username}\\AppData\\Local\\trixbox\\eyeBeam`;
 
-    log.info(process.env.HOME);
-
-    fs.readdir(process.env.HOME + fullPathToSetting, (err, files) => {
+    fs.readdir(fullPathToSetting, (err, files) => {
       if(err) return console.log('Error while trying to find settings folder');
       files.every(file => {
-        logger.info(file);
-        fullPathToSetting = `${process.env.HOME + fullPathToSetting}\\${file}\\settings.cps`;
-        logger.info('fullPath ', fullPathToSetting);
+        console.log(file);
+        fullPathToSetting = `${fullPathToSetting}\\${file}\\settings.cps`;
+        console.log('fullPath ', fullPathToSetting);
         const parser = new xml2js.Parser();
+
         return fs.readFile(fullPathToSetting, (err2, data) => {
           if(err2) return console.log('Error while trying to read setting.cps');
           parser.parseString(data, (err3, result) => {
@@ -119,6 +122,8 @@ app.on('ready', async () => {
       });
      });
   });
+
+
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
