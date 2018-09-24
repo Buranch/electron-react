@@ -9,6 +9,7 @@ import * as CounterActions from '../actions';
 
 import { pauseGET, resumeGET, checkActive } from './API/api';
 
+
 type Props = {
   // setUserName: () => void
   username: string,
@@ -32,7 +33,9 @@ class Recorder extends Component<Props> {
     starting: true
    };
    this.url = "audio/beep.mp3";
+  //  this.audio = new Audio(this.url);
    this.audio = new Audio(this.url);
+   console.log(this.audio);
   //  this.audio.loop = true;
   this.tick = this.tick.bind(this);
  }
