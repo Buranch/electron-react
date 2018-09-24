@@ -11,7 +11,6 @@
  * @flow
  */
 import fs from 'fs';
-import util from 'util';
 import xml2js from 'xml2js';
 import {
   app,
